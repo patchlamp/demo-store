@@ -3,12 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fernhill Candle Co.</title>
-  <!-- REPLACE-ME: one sentence about Fernhill Candle Co. for search results. -->
-  <meta name="description" content="Fernhill Candle Co. — Hand-poured soy candles, made in small batches.">
+  <title>Fernhill Candle Co. — Patchlamp's store demo</title>
+  <meta name="description" content="Fernhill Candle Co. is Patchlamp's demo shop: a catalog with prices, a basket, pickup hours and orders on /admin, all changed by text. Not a real business.">
+  <meta name="robots" content="noindex">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+  <p class="demo-bar">
+    <strong>This is a demo.</strong> Fernhill Candle Co. is not a real shop — it is
+    <a href="https://patchlamp.com/">Patchlamp's</a> store demo. Text the demo number and
+    whatever you ask for changes this site, usually in under a minute. It resets every night.
+  </p>
 
   <header class="site-header">
     <a class="wordmark" href="index.html">Fernhill Candle Co.</a>
@@ -22,7 +28,6 @@
   <main>
     <section class="hero">
       <h1 class="hero-title">Fernhill Candle Co.</h1>
-      <!-- REPLACE-ME: placeholder tagline — swap for the client's own line. -->
       <p class="hero-tagline">Hand-poured soy candles, made in small batches.</p>
       <div class="button-row">
         <a class="button" href="#shop">Shop</a>
@@ -33,7 +38,9 @@
       <div class="section-inner reveal">
         <p class="kicker">About</p>
         <h2>What we make</h2>
-        <p class="lede"><!-- REPLACE-ME --> Placeholder: what they make or sell, in a sentence or two.</p>
+        <p class="lede">Soy wax, cotton wicks and scents we mix ourselves, poured a few dozen at a time in a
+          back room that always smells like cedar. Every candle burns clean for as long as the label says.</p>
+        <p>Order online, pick up at the counter. We don't ship: small batches, small shop.</p>
       </div>
     </section>
     <section class="section" id="shop">
@@ -98,8 +105,8 @@
                 .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
                 .then(function (data) {
                   mode = data.checkout; box.textContent = ""; hoursBox(data.hours, data.open_now);
-                  pay.textContent = mode === "live" ? "Pay and pick up" : mode === "test" ? "Pay (Stripe test mode — no real charge)" : "Checkout: test mode, not switched on";
-                  payNote.textContent = mode === "live" ? "Payment is by Stripe Checkout." : mode === "test" ? "This is Stripe's test mode: use card 4242 4242 4242 4242, any future date, any code. Nothing is charged." : "Paying online isn't switched on yet. Browse away; ordering opens when it is.";
+                  pay.textContent = mode === "live" ? "Pay and pick up" : mode === "test" ? "Pay (Stripe test mode — no real charge)" : "Checkout opens once Stripe is connected";
+                  payNote.textContent = mode === "live" ? "Payment is by Stripe Checkout." : mode === "test" ? "This is Stripe's test mode: use card 4242 4242 4242 4242, any future date, any code. Nothing is charged." : "Paying online isn't connected yet: fill a basket if you like, but nothing is charged and no order is taken until it is.";
                   if (!data.products.length) { box.appendChild(el("p", "muted", "Nothing here yet.")); return; }
                   var section = null, last = null;
                   data.products.forEach(function (p) {
@@ -164,7 +171,7 @@
         <div class="details-grid">
           <div>
             <h3>Where</h3>
-            <p><!-- REPLACE-ME --> Where to pick up.</p>
+            <p>The counter by the front door. (A demo: there is no street address.)</p>
           </div>
           <div>
             <h3>Pickup hours</h3>
@@ -172,7 +179,7 @@
           </div>
           <div>
             <h3>Contact</h3>
-            <p><a href="mailto:hello@example.com">hello@example.com</a></p>
+            <p><a href="mailto:hello@example.com">hello@example.com</a><br>555-0164</p>
           </div>
         </div>
       </div>
