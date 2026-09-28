@@ -127,12 +127,21 @@ needs it. `/admin` pages are never indexed and never cached.
 | Products | `products` | the shop, `#shop` (from `GET /api/catalog`) |
 | Hours | `hours` | the pickup hours box (`data-hours`) |
 | Orders | `orders` | written by `POST /api/checkout`, marked paid by Stripe's webhook |
+| Stock | `stock` (a web tool, B40: made by `db add stock --from-sheet` from the owner's stock sheet; `claude-tools/templates/tools/stock/`) | not shown; the owner's count, reorder levels and suppliers on `/admin/stock` |
 
 **The shop reads the database live**: a price, a new item, sold out, or an
 hour is one `db exec` and no publish (the catalog README in claude-tools
 `templates/collections/catalog/` has the texts). Prices are in cents. Taking
 payment needs the owner's Stripe key, set by Taylor (`site checkout`); until
 then the button says "Checkout opens once Stripe is connected".
+
+**Stock** is the owner's, never on a page or in a post (costs and suppliers
+are private). No publish for any of these:
+
+- "what's below reorder?" → `db query "SELECT item, on_hand, reorder_at, supplier FROM stock WHERE on_hand < reorder_at ORDER BY item"`
+  (the "below reorder" pill on `/admin/stock` is the same list); read it back in a line or two.
+- "we have 20 Salt Flats now" → `db exec "UPDATE stock SET on_hand = 20, updated_at = strftime('%Y-%m-%dT%H:%M:%SZ','now') WHERE item LIKE 'Salt Flats%'"`
+- a new count sheet → PLAYBOOK § Web tools, "Spreadsheet → tool" (the audit first, then one UPDATE per changed row).
 
 ## Hosting (for Taylor)
 

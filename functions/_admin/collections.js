@@ -5,4 +5,5 @@
 import catalog from "./catalog.js";
 import hours from "./hours.js";
 import orders from "./orders.js";
-export default { catalog, hours, orders };
+import stock from "./stock.js";
+export default { catalog, hours, orders, stock };
